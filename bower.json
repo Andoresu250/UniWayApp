@@ -1,0 +1,26 @@
+{
+  "name": "UniWay Movil",
+  "version": "0.0.0",
+  "authors": [
+    "Andoresu250 <andres-vera95hotmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "install": {
+    "path": "client/libs"
+  },
+  "dependencies": {
+    "angular-materialize": "*",
+    "angular-route": "~1.4.7"
+  }
+}
