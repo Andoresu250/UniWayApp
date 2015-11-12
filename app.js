@@ -33,7 +33,8 @@ angular.module('Uniway', ['ngRoute'])
 	$scope.logo = imagesRoutes + "Uniway.png";
 	$scope.active = "1";
 	$scope.formSignUp = {};
-
+	$scope.gPlace;
+	
 	$("input[name='mon_time_u']").val("06:30");
 	$("#default_time_u").click(function () {
 		var check = $("#default_time_u").is(':checked')		
@@ -74,20 +75,27 @@ angular.module('Uniway', ['ngRoute'])
 	$scope.setRange = function(range){
 		$scope.formSignUp.rank=range;
 	}
-	$scope.signup = function(form){
+	$scope.addAddress = function(){
+		$scope.formSignUp.locationU=this.gPlace.getPlace().place_id;
+	}
+	$scope.signup = function(){
+		var form=$scope.formSignUp
 		var data ={
-			username: this.userName, 
-			password: this.password, 
-			password_confirmation: this.password, 
-			rank: this.rank,    //'sa'/'admin'/'driver'/'passenger'
-			name: this.nameU, 
-			email: this.email, 
-			location: this.locationU, 
-			capacity: this.capacity
+			username: form.userName, 
+			password: form.password, 
+			password_confirmation: form.cpassword, 
+			rank: form.rank,    //'sa'/'admin'/'driver'/'passenger'
+			name: "form.nameU", 
+			email: form.email, 
+			location: form.locationU, 
+			capacity: form.capacity
 		};
-		$http.post(url='http://uniway-api.herokuapp.com/users',data).success(function(data){
-			this.asignActive('6');
-	    });
+		$http.post(url='http://uniway-api.herokuapp.com/users',data).then(function(data){
+			$scope.asignActive('6');
+		},function(error){
+			alert('No se puedo registrar')
+		});
+	
 	}
 }])
 .controller('searchCtrl', ['$scope', function ($scope) {
@@ -106,4 +114,22 @@ angular.module('Uniway', ['ngRoute'])
     }
   };
 })
+.directive('googleplace', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, model) {
+            var options = {
+                types: [],
+                componentRestrictions: {}
+            };
+            scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
+
+            google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
+                scope.$apply(function() {
+                    model.$setViewValue(element.val());                
+                });
+            });
+        }
+    };
+});
 ;
