@@ -31,8 +31,7 @@ angular.module('Uniway', ['ngRoute'])
 	var imagesRoutes = "client/libs/img/";
 	$scope.logo = imagesRoutes + "Uniway.png";
 	$scope.active = "1";
-	$(".button-collapse").sideNav();
-    $('.button-collapse').sideNav('hide');
+	
 	$("input[name='mon_time_u']").val("06:30");
 	$("#default_time_u").click(function () {
 		var check = $("#default_time_u").is(':checked')		
@@ -77,4 +76,14 @@ angular.module('Uniway', ['ngRoute'])
 .controller('dashboardCtrl', ['$scope', function ($scope) {
 	
 }])
+.directive('navbar', function() {
+  return {
+    restrict: 'E',
+    templateUrl: 'client/partials/directives/navbar.html',
+    link: function(scope, elem, attrs){
+    	$(".button-collapse").sideNav();
+    	$('.button-collapse').sideNav('hide');
+    }
+  };
+})
 ;
