@@ -17,6 +17,15 @@
 			<div class="row">
 		    	<div class="col s12">		      	
 			        <div class="input-field col s12">
+			          <i class="material-icons prefix">Name</i>	
+			          <input id="uniMail" ng-model="formSignUp.nameU" type="text" class=""></input>
+			          <label for="uniMail">Name</label>
+			        </div>
+				 </div>					
+			</div>
+			<div class="row">
+		    	<div class="col s12">		      	
+			        <div class="input-field col s12">
 			          <i class="material-icons prefix">account_circle</i>	
 			          <input id="userName" ng-model="formSignUp.userName" type="text" class=""></input>
 			          <label for="userName">User Name</label>
@@ -67,7 +76,7 @@
 		</div>
 		<div class="row footer">
 			<div class="col s6">				
-				<a class="btn left " ng-click="asignActive('2')">Back</a>
+				<a class="btn left " ng-click="asignActive('1')">Back</a>
 			</div>			
 			<div class="col s6">				
 				<a class="btn right " ng-click="asignActive('4'); addAddress()">Next</a>
