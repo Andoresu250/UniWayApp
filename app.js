@@ -36,7 +36,7 @@ angular.module('Uniway', ['ngRoute', 'ngStorage'])
 	.otherwise({ redirectTo: '/home' })
 }])
 
-.controller('signInCtrl', ['$scope','$localStorage', '$http', function ($scope, $localStorage, $http) {
+.controller('signInCtrl', ['$scope','$localStorage', '$http', '$location', function ($scope, $localStorage, $http,$location) {
 	var imagesRoutes = "libs/local/img/";	
 	$scope.logo = imagesRoutes + "Uniway.png";
 
@@ -50,11 +50,11 @@ angular.module('Uniway', ['ngRoute', 'ngStorage'])
 		$http({method: 'POST', url: 'http://uniway-api.herokuapp.com/login', data: data}).success(function(data){
 			$localStorage.userJson = data;
 			$scope.userJson = $localStorage.userJson;					
+			$location.url('/dashboard');
 		});
 					
 	}
 }])
-
 
 .controller('signUpCtrl', ['$scope','$http', function ($scope,$http) {	
 	var imagesRoutes = "libs/local/img/";
@@ -89,7 +89,7 @@ angular.module('Uniway', ['ngRoute', 'ngStorage'])
 			capacity: form.capacity
 		};
 		$http.post(url='http://uniway-api.herokuapp.com/users',data).then(function(data){
-			$scope.asignActive('6');
+			$scope.asignActive('6');			
 		},function(error){
 			alert('No se puedo registrar')
 		});
@@ -144,6 +144,18 @@ angular.module('Uniway', ['ngRoute', 'ngStorage'])
     }
   };
 })
+.controller('navbarCtrl', ['$scope', '$localStorage','$http', function ($scope,$localStorage,$http) {
+	$scope.userJson = $localStorage.userJson;	
+	$scope.logOut = function () {		
+		var data = {
+			'Authorization' : $scope.userJson.user.token
+		}
+		$http({method: 'POST', url: 'http://uniway-api.herokuapp.com/logout', data: data}).success(function(data){
+			$localStorage.userJson = null;								
+			$location.url('/home');
+		});
+	}	
+}])
 .directive('selectlist', function() {
   return {
     restrict: 'E',
@@ -156,6 +168,7 @@ angular.module('Uniway', ['ngRoute', 'ngStorage'])
 .directive('googleplace', function() {
     return {
         require: 'ngModel',
+        controller: 'navbarCtrl',
         link: function(scope, element, attrs, model) {
             var options = {
                 types: [],
