@@ -28,7 +28,7 @@ angular.module('Uniway', ['ngRoute'])
 }])
 
 .controller('signUpCtrl', ['$scope', function ($scope) {	
-	var imagesRoutes = "client/libs/img/";
+	var imagesRoutes = "libs/local/img/";
 	$scope.logo = imagesRoutes + "Uniway.png";
 	$scope.active = "1";
 	
