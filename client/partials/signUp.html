@@ -4,12 +4,12 @@
 				<img ng-src="{{logo}}" class="responsive-img circle border be-white"></img>
 			</div>			
 		</div>		
-		<form class="col s12">
+		<form class="col s12" ng-submit="signup(formSignUp)">
 			<div class="row">
 		    	<div class="col s12">		      	
 			        <div class="input-field col s12">
 			          <i class="material-icons prefix">email</i>	
-			          <input id="uniMail" type="email" class=""></input>
+			          <input id="uniMail" ng-modal="formSignUp.email" type="email" class=""></input>
 			          <label for="uniMail">UniMail</label>
 			        </div>
 				 </div>					
@@ -18,7 +18,7 @@
 		    	<div class="col s12">		      	
 			        <div class="input-field col s12">
 			          <i class="material-icons prefix">account_circle</i>	
-			          <input id="userName" type="text" class=""></input>
+			          <input id="userName" ng-modal="formSignUp.userName" type="text" class=""></input>
 			          <label for="userName">User Name</label>
 			        </div>
 				 </div>					
@@ -27,7 +27,7 @@
 			    <div class="col s12">				    
 			        <div class="input-field col s12">
 			          <i class="material-icons prefix">vpn_key</i>		
-			          <input id="password" type="password" class=""></input>
+			          <input id="password" ng-modal="formSignUp.password" type="password" class=""></input>
 			          <label for="password">Password</label>
 			        </div>
 			    </div>					
@@ -138,8 +138,8 @@
 	              <span class="card-title">Are you driver?</span>
 	            </div>
 	            <div class="card-action">
-	              <a ng-click="asignActive('5')">Yes I am!</a>
-	              <a data-bind="click:register" ng-click="asignActive('6')">No, I am passenger</a>
+	              <a ng-click="asignActive('5'); setRange('driver')">Yes I am!</a>
+	              <a ng-click="setRange('passenger'); signup(form)">No, I am passenger</a>
 	            </div>
 	          </div>
 	        </div>		      
@@ -152,7 +152,7 @@
 	    	<div class="col s12">		      	
 		        <div class="input-field col s12">
 		          <i class="fa fa-car prefix"></i>
-		          <input id="seats" type="text" class="" data-bind="seats"></input>
+		          <input id="seats" ng-modal="formSignUp.capacity" type="text" class="" data-bind="seats"></input>
 		          <label for="seats">Number of seats</label>
 		        </div>
 			 </div>					
@@ -161,7 +161,7 @@
 	    	<div class="col s12">		      	
 		        <div class="input-field col s12">
 		          <i class="fa fa-road prefix"></i>	
-		          <input id="carPlate" type="text" class="" data-bind="carPlate"></input>
+		          <input id="carPlate" ng-modal="plate" type="text" class="" data-bind="carPlate"></input>
 		          <label for="carPlate">Car plate</label>
 		        </div>
 			 </div>					
@@ -171,7 +171,7 @@
 				<a class="btn left" ng-click="asignActive('4')">Back</a>
 			</div>			
 			<div class="col s6">
-			 	<button class="btn right" data-bind="click:register" ng-click="asignActive('6')">Next    				
+			 	<button class="btn right" type="submit" ng-click="asignActive('6')">Next    				
   				</button>				
 			</div>				
 		</div>

@@ -27,11 +27,12 @@ angular.module('Uniway', ['ngRoute'])
 	$scope.logo = imagesRoutes + "Uniway.png";
 }])
 
-.controller('signUpCtrl', ['$scope', function ($scope) {	
+.controller('signUpCtrl', ['$scope','$http', function ($scope,$http) {	
 	var imagesRoutes = "client/libs/img/";
 	$scope.logo = imagesRoutes + "Uniway.png";
 	$scope.active = "1";
-	
+	$scope.formSignUp = {};
+
 	$("input[name='mon_time_u']").val("06:30");
 	$("#default_time_u").click(function () {
 		var check = $("#default_time_u").is(':checked')		
@@ -68,6 +69,24 @@ angular.module('Uniway', ['ngRoute'])
 
 	$scope.asignActive = function (id) {
 		$scope.active = id;
+	}
+	$scope.setRange = function(range){
+		$scope.formSignUp.rank=range;
+	}
+	$scope.signup = function(form){
+		var data ={
+			username: this.userName, 
+			password: this.password, 
+			password_confirmation: this.password, 
+			rank: this.rank,    //'sa'/'admin'/'driver'/'passenger'
+			name: this.nameU, 
+			email: this.email, 
+			location: this.locationU, 
+			capacity: this.capacity
+		};
+		$http.post(url='http://uniway-api.herokuapp.com/users',data).success(function(data){
+			this.asignActive('6');
+	    });
 	}
 }])
 .controller('searchCtrl', ['$scope', function ($scope) {
