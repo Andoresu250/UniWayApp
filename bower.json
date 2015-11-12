@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "angular-materialize": "*",
-    "angular-route": "~1.4.7"
+    "angular-route": "~1.4.7",
+    "ngstorage": "ng-storage#~0.4.2"
   }
 }

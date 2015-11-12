@@ -4,12 +4,12 @@
 			<img ng-src="{{logo}}" class="responsive-img circle border be-white"></img>
 		</div>			
 	</div>		
-	<form class="col s12">
+	<form class="col s12" name="loginForm" ng-submit="signin()">
 		<div class="row">
 	    	<div class="col s12">		      	
 		        <div class="input-field col s12">
 		          <i class="material-icons prefix">account_circle</i>	
-		          <input id="userName" type="text" class=""></input>
+		          <input id="userName" type="text" ng-model="formSignIn.userName"></input>
 		          <label for="userName">User Name</label>
 		        </div>
 			 </div>					
@@ -18,11 +18,12 @@
 		    <div class="col s12">				    
 		        <div class="input-field col s12">
 		          <i class="material-icons prefix">vpn_key</i>		
-		          <input id="password" type="password" class=""></input>
+		          <input id="password" type="password" ng-model="formSignIn.password"></input>
 		          <label for="password">Password</label>
 		        </div>
 		    </div>					
-		</div>		
+		</div>	
+		<label>{{userJson.name}}</label>	
 		<div class="row footer">
 			<div class="col s6 wrapper">				
 				<a href="#/signUp" class="btn">SignUp<i class="material-icons left">supervisor_account</i></a>
@@ -31,7 +32,7 @@
 				<button class="btn">Login<i class="material-icons right">send</i></button>		  						  		
 			</div>-->
 			<div class="col s6 wrapper">				
-				<a href="#/dashboard" class="btn">Login<i class="material-icons right">send</i></a>
+				<button type="submit" class="btn">Login<i class="material-icons right">send</i></button>
 			</div>
 		</div>
 	</form>				

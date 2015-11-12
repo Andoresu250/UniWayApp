@@ -1,4 +1,4 @@
-angular.module('Uniway', ['ngRoute'])
+angular.module('Uniway', ['ngRoute', 'ngStorage'])
 
 .config(['$routeProvider','$locationProvider',function ($routeProvider, $locationProvider) {
 	$routeProvider
@@ -36,9 +36,23 @@ angular.module('Uniway', ['ngRoute'])
 	.otherwise({ redirectTo: '/home' })
 }])
 
-.controller('signInCtrl', ['$scope', function ($scope,$sce) {
-	var imagesRoutes = "libs/local/img/";
+.controller('signInCtrl', ['$scope','$localStorage', '$http', function ($scope, $localStorage, $http) {
+	var imagesRoutes = "libs/local/img/";	
 	$scope.logo = imagesRoutes + "Uniway.png";
+
+	$scope.signin = function(){
+		
+		var form = $scope.formSignIn
+		var data ={
+			username: form.userName, 
+			password: form.password			
+		};
+		$http({method: 'POST', url: 'http://uniway-api.herokuapp.com/login', data: data}).success(function(data){
+			$localStorage.userJson = data;
+			$scope.userJson = $localStorage.userJson;					
+		});
+					
+	}
 }])
 
 
@@ -85,8 +99,8 @@ angular.module('Uniway', ['ngRoute'])
 .controller('searchCtrl', ['$scope', function ($scope) {
 	$('#select_uni').prop('checked',true);
 }])
-.controller('dashboardCtrl', ['$scope', function ($scope) {
-	
+.controller('dashboardCtrl', ['$scope','$localStorage', function ($scope,$localStorage) {
+	$scope.userJson = $localStorage.userJson;	
 }])
 .controller('timetableCtrl', ['$scope', function ($scope) {
 	$("input[name='mon_time_u']").val("06:30");
